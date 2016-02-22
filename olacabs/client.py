@@ -3,12 +3,11 @@ import requests
 PRODUCTION_URL = "https://devapi.olacabs.com/v1/"
 STAGE_URL = "https://devapi.olacabs.com/v1/"
 
+
 class OlaCabsClient(object):
-    def __init__(self, x_app_token, oauthtoken, debug=False):
+    def __init__(self, x_app_token, debug=False):
         self.api_url = STAGE_URL if debug else PRODUCTION_URL
         self.x_app_token = x_app_token
-        self.oauthtoken = oauthtoken
-
 
     def search_ride(self, pickup_lat, pickup_lng):
         params = {
@@ -35,35 +34,35 @@ class OlaCabsClient(object):
         }
         return self._get("products", headers, params)
 
-    def book_ride(self, pickup_lat, pickup_lng, category):
+    def book_ride(self, pickup_lat, pickup_lng, category, oauthtoken, pickup_mode="NOW"):
         params = {
             "pickup_lat": pickup_lat,
             "pickup_lng": pickup_lng,
             "category": category,
-            "pickup_mode": "NOW"
+            "pickup_mode": pickup_mode
         }
 
         headers = {
             "X-APP-TOKEN": self.x_app_token,
-            "Authorization": self.oauthtoken
+            "Authorization": oauthtoken
         }
         return self._get("bookings/create", headers, params)
 
-    def cancel_ride(self, crn):
+    def cancel_ride(self, crn, oauthtoken):
         params = {
             "crn": crn
         }
 
         headers = {
             "X-APP-TOKEN": self.x_app_token,
-            "Authorization": self.oauthtoken
+            "Authorization": oauthtoken
         }
         return self._get("bookings/cancel", headers, params)
 
-    def track_ride(self):
+    def track_ride(self, oauthtoken):
         headers = {
             "X-APP-TOKEN": self.x_app_token,
-            "Authorization": self.oauthtoken
+            "Authorization": oauthtoken
         }
         return self._get("bookings/track_ride", headers)
 

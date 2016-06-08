@@ -16,7 +16,7 @@ from olacabs import OlaCabsClient
 
 client = OlaCabsClient(x_app_token=OLA_SERVER_TOKEN, debug=OLA_SANDBOX)
 
-client.search_ride(pickup_lat, pickup_lng)
+client.search_ride(pickup_lat, pickup_lng, category=None)
 
 client.get_ride_estimate(pickup_lat, pickup_lng, drop_lat, drop_lng, category)
 

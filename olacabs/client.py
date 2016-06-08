@@ -9,11 +9,13 @@ class OlaCabsClient(object):
         self.api_url = STAGE_URL if debug else PRODUCTION_URL
         self.x_app_token = x_app_token
 
-    def search_ride(self, pickup_lat, pickup_lng):
+    def search_ride(self, pickup_lat, pickup_lng, category=None):
         params = {
             "pickup_lat": pickup_lat,
             "pickup_lng": pickup_lng
         }
+        if category:
+            params['category'] = category
 
         headers = {
             "X-APP-TOKEN": self.x_app_token

@@ -69,6 +69,18 @@ class OlaCabsClient(object):
         }
         return self._get("bookings/track_ride", headers)
 
+    def validate_coupon(self, coupon_code, category, oauthtoken):
+        params = {
+            "coupon_code": coupon_code,
+            "category": category
+        }
+
+        headers = {
+            "X-APP-TOKEN": self.x_app_token,
+            "Authorization": oauthtoken
+        }
+        return self._get("bookings/cancel", headers, params)
+
     def _get(self, resource, headers, params=None):
         api_url = self.api_url + resource
 

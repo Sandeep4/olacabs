@@ -46,7 +46,8 @@ class OlaCabsClient(object):
 
         headers = {
             "X-APP-TOKEN": self.x_app_token,
-            "Authorization": oauthtoken
+            "Authorization": oauthtoken,
+            "Content-Type": "application/json"
         }
         return self._get("bookings/create", headers, params)
 
